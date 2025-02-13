@@ -51,12 +51,13 @@ public class TaskRejectAware extends TaskStatAware {
 
     @Override
     public void beforeReject(Runnable runnable, Executor executor) {
+        // 统计
         ThreadPoolStatProvider statProvider = statProviders.get(executor);
         if (Objects.isNull(statProvider)) {
             return;
         }
-
         statProvider.incRejectCount(1);
+        // 告警
         AlarmManager.tryAlarmAsync(statProvider.getExecutorWrapper(), REJECT, runnable);
         ExecutorAdapter<?> executorAdapter = statProvider.getExecutorWrapper().getExecutor();
         String logMsg = CharSequenceUtil.format("DynamicTp execute, thread pool is exhausted, tpName: {},  traceId: {}, " +

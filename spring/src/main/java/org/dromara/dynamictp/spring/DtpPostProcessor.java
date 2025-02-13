@@ -98,12 +98,18 @@ public class DtpPostProcessor implements BeanPostProcessor, BeanFactoryAware, Pr
         return registerAndReturnCommon(bean, beanName);
     }
 
+    /**
+     * 注册动态线程池
+     */
     private Object registerAndReturnDtp(Object bean) {
         DtpExecutor dtpExecutor = (DtpExecutor) bean;
+        // 参数值列表
         Object[] args = ConstructorUtil.buildTpExecutorConstructorArgs(dtpExecutor);
+        // 参数类型列表
         Class<?>[] argTypes = ConstructorUtil.buildTpExecutorConstructorArgTypes();
+        // 插件
         Set<String> pluginNames = dtpExecutor.getPluginNames();
-
+        // 插件增强
         val enhancedBean = (DtpExecutor) DtpInterceptorRegistry.plugin(bean, pluginNames, argTypes, args);
         if (enhancedBean instanceof EagerDtpExecutor) {
             ((TaskQueue) enhancedBean.getQueue()).setExecutor((EagerDtpExecutor) enhancedBean);
@@ -115,10 +121,12 @@ public class DtpPostProcessor implements BeanPostProcessor, BeanFactoryAware, Pr
     private Object registerAndReturnCommon(Object bean, String beanName) {
         String dtpAnnoValue;
         try {
+            // 获取DynamicTp注解
             DynamicTp dynamicTp = beanFactory.findAnnotationOnBean(beanName, DynamicTp.class);
             if (Objects.nonNull(dynamicTp)) {
                 dtpAnnoValue = dynamicTp.value();
             } else {
+                // @Bean注解上是否有DynamicTp注解
                 BeanDefinition beanDefinition = beanFactory.getBeanDefinition(beanName);
                 if (!(beanDefinition instanceof AnnotatedBeanDefinition)) {
                     return bean;
@@ -137,21 +145,25 @@ public class DtpPostProcessor implements BeanPostProcessor, BeanFactoryAware, Pr
             log.warn("There is no bean with the given name {}", beanName, e);
             return bean;
         }
+        // 线程池名称
         String poolName = StringUtils.isNotBlank(dtpAnnoValue) ? dtpAnnoValue : beanName;
         return doRegisterAndReturnCommon(bean, poolName);
     }
 
     private Object doRegisterAndReturnCommon(Object bean, String poolName) {
+        // ThreadPoolTaskExecutor是spring中任务线程池
         if (bean instanceof ThreadPoolTaskExecutor) {
             ThreadPoolTaskExecutor poolTaskExecutor = (ThreadPoolTaskExecutor) bean;
+            // threadPoolExecutor字段设置proxy对象
             val proxy = newProxy(poolName, poolTaskExecutor.getThreadPoolExecutor());
             try {
                 ReflectionUtil.setFieldValue("threadPoolExecutor", bean, proxy);
                 tryWrapTaskDecorator(poolName, poolTaskExecutor, proxy);
-            } catch (IllegalAccessException ignored) { }
+            } catch (IllegalAccessException ignored) {}
             DtpRegistry.registerExecutor(new ExecutorWrapper(poolName, proxy), REGISTER_SOURCE);
             return bean;
         }
+        // 兼容ScheduledThreadPoolExecutor定时任务线程池
         Executor proxy;
         if (bean instanceof ScheduledThreadPoolExecutor) {
             proxy = newScheduledTpProxy(poolName, (ScheduledThreadPoolExecutor) bean);
@@ -185,6 +197,7 @@ public class DtpPostProcessor implements BeanPostProcessor, BeanFactoryAware, Pr
     }
 
     private void tryWrapTaskDecorator(String poolName, ThreadPoolTaskExecutor poolTaskExecutor, ThreadPoolExecutorProxy proxy) throws IllegalAccessException {
+        // TaskDecorator 任务增强
         Object taskDecorator = ReflectionUtil.getFieldValue("taskDecorator", poolTaskExecutor);
         if (Objects.isNull(taskDecorator)) {
             return;

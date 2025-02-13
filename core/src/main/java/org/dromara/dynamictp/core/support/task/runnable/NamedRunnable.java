@@ -23,7 +23,7 @@ import java.util.UUID;
 
 /**
  * NamedRunnable related
- *
+ * 给任务命名
  * @author yanhom
  * @since 1.0.6
  */

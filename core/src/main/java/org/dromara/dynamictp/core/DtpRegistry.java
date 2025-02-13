@@ -73,6 +73,7 @@ public class DtpRegistry {
 
     /**
      * Maintain all automatically registered and manually registered Executors.
+     * DTP注册点
      */
     private static final Map<String, ExecutorWrapper> EXECUTOR_REGISTRY = new ConcurrentHashMap<>();
 
@@ -85,6 +86,7 @@ public class DtpRegistry {
 
     public DtpRegistry(DtpProperties dtpProperties) {
         DtpRegistry.dtpProperties = dtpProperties;
+        // 注册监听器
         EventBusManager.register(this);
     }
 
@@ -187,6 +189,10 @@ public class DtpRegistry {
         dtpProperties.getExecutors().forEach(DtpRegistry::refresh);
     }
 
+    /**
+     *
+     * @param props
+     */
     public static void refresh(DtpExecutorProps props) {
         if (Objects.isNull(props) || StringUtils.isBlank(props.getThreadPoolName())) {
             log.warn("DynamicTp refresh, thread pool name must not be blank, executorProps: {}", props);

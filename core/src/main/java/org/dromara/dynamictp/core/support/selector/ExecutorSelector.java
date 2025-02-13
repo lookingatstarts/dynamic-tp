@@ -22,7 +22,7 @@ import java.util.concurrent.Executor;
 
 /**
  * ExecutorSelector related
- *
+ * 执行器选择器
  * @author yanhom
  * @since 1.1.3
  **/

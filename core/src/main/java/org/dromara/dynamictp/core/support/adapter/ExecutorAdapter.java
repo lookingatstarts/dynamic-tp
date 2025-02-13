@@ -27,6 +27,7 @@ import java.util.concurrent.RejectedExecutionHandler;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * 适配器
  * ExecutorAdapter inherits Executor, the goal of this interface is to be
  * as compatible as possible with {@link java.util.concurrent.ThreadPoolExecutor}.
  *

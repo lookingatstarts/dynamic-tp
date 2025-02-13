@@ -142,12 +142,18 @@ public class AlarmManager {
         return alarmInfo.getCount() >= notifyItem.getThreshold();
     }
 
+    /**
+     * 获取traceId
+     */
     private static void preAlarm(Runnable runnable) {
         if (runnable instanceof DtpRunnable) {
             MDC.put(TRACE_ID, ((DtpRunnable) runnable).getTraceId());
         }
     }
 
+    /**
+     * 移除traceId
+     */
     private static void postAlarm(Runnable runnable) {
         if (runnable instanceof DtpRunnable) {
             MDC.remove(TRACE_ID);

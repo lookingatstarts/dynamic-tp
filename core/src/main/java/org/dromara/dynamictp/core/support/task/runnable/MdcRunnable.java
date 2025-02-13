@@ -53,13 +53,10 @@ public class MdcRunnable implements Runnable {
 
     @Override
     public void run() {
-
         if (MapUtils.isEmpty(parentMdc) || Objects.equals(Thread.currentThread(), parentThread)) {
             runnable.run();
             return;
         }
-
-        // Assign the MDC value of the parent thread to the child thread
         for (Map.Entry<String, String> entry : parentMdc.entrySet()) {
             MDC.put(entry.getKey(), entry.getValue());
         }

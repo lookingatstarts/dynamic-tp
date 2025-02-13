@@ -36,6 +36,9 @@ public class BinderHelper {
 
     private BinderHelper() { }
 
+    /**
+     * 配置绑定器
+     */
     private static PropertiesBinder getBinder() {
         PropertiesBinder binder = Singleton.INST.get(PropertiesBinder.class);
         if (Objects.nonNull(binder)) {

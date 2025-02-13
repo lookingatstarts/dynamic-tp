@@ -28,6 +28,7 @@ import org.dromara.dynamictp.core.executor.ScheduledDtpExecutor;
 import java.lang.reflect.InvocationTargetException;
 
 /**
+ * 和mybatis的plugin 包装器设计模式
  * @author windsearcher.lq
  */
 @DtpIntercepts(
@@ -42,7 +43,6 @@ public class TestExecuteInterceptor implements DtpInterceptor {
 
     @Override
     public Object intercept(DtpInvocation invocation) throws InvocationTargetException, IllegalAccessException {
-
         DtpExecutor dtpExecutor = (DtpExecutor) invocation.getTarget();
         String method = invocation.getMethod().getName();
         Object[] args = invocation.getArgs();

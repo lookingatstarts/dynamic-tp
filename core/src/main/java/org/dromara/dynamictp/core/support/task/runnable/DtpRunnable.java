@@ -30,11 +30,17 @@ import static org.dromara.dynamictp.common.constant.DynamicTpConst.TRACE_ID;
  */
 @Getter
 public class DtpRunnable implements Runnable {
-
+    /**
+     * 原对象
+     */
     private final Runnable originRunnable;
-
+    /**
+     * 被TaskWrapper增强后的对象
+     */
     private final Runnable runnable;
-
+    /**
+     * 任务名称
+     */
     private final String taskName;
 
     private final String traceId;

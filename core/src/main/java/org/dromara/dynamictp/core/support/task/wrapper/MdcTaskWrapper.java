@@ -21,7 +21,7 @@ import org.dromara.dynamictp.core.support.task.runnable.MdcRunnable;
 
 /**
  * MdcTaskWrapper related
- *
+ * 支持MDC
  * @author yanhom
  * @since 1.0.8
  **/

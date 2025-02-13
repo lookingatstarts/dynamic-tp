@@ -35,7 +35,7 @@ import java.util.concurrent.atomic.LongAdder;
 
 /**
  * Stat provider for thread pool.
- *
+ * 线程池统计信息
  * @author hanli
  * @since 1.1.4
  */
@@ -49,27 +49,32 @@ public class ThreadPoolStatProvider {
     private long runTimeout = 0;
 
     /**
+     * 任务超时尝试中断
      * Try interrupt task when timeout.
      */
     private boolean tryInterrupt = false;
 
     /**
      * Task queue wait timeout, unit (ms), just for statistics.
+     * 阻塞队列等待时长
      */
     private long queueTimeout = 0;
 
     /**
      * Total reject count.
+     * 拒绝次数
      */
     private final LongAdder rejectCount = new LongAdder();
 
     /**
      * Count run timeout tasks.
+     * 超时次数
      */
     private final LongAdder runTimeoutCount = new LongAdder();
 
     /**
      * Count queue wait timeout tasks.
+     * 入队超时次数
      */
     private final LongAdder queueTimeoutCount = new LongAdder();
 
@@ -87,7 +92,6 @@ public class ThreadPoolStatProvider {
      * stopWatchMap  key -> Runnable  value -> millis
      */
     private final Map<Runnable, Long> stopWatchMap = new ConcurrentHashMap<>();
-
     /**
      * performance provider
      */

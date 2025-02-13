@@ -38,6 +38,7 @@ public class EventBusManager {
 
     private EventBusManager() { }
 
+    // 注册监听器
     public static void register(Object object) {
         if (REGISTERED_OBJECTS.add(object)) {
             EVENT_BUS.register(object);

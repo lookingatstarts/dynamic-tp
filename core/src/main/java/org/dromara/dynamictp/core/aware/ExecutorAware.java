@@ -26,7 +26,7 @@ import java.util.concurrent.Executor;
 
 /**
  * ExecutorAware related
- *
+ * 对ThreadPoolExecutor的勾子方法进行增强，
  * @author kyao
  * @since 1.1.4
  */
@@ -34,28 +34,28 @@ public interface ExecutorAware extends DtpAware {
 
     /**
      * aware order
-     *
+     * 顺序
      * @return order
      */
     int getOrder();
 
     /**
      * aware name
-     *
+     * 名称
      * @return name
      */
     String getName();
 
     /**
      * register Executor
-     *
+     * 注册执行器
      * @param wrapper executor wrapper
      */
     default void register(ExecutorWrapper wrapper) { }
 
     /**
      * refresh props
-     *
+     * 更新执行器配置
      * @param wrapper executor wrapper
      * @param props  executor props
      */
@@ -72,7 +72,7 @@ public interface ExecutorAware extends DtpAware {
 
     /**
      * enhance execute
-     *
+     * 提交任务
      * @param executor executor
      * @param r       runnable
      */
@@ -82,7 +82,7 @@ public interface ExecutorAware extends DtpAware {
 
     /**
      * enhance beforeExecute
-     *
+     * 任务执行之前调用
      * @param executor executor
      * @param t        thread
      * @param r        runnable

@@ -98,6 +98,9 @@ public abstract class AbstractRefresher implements Refresher {
         return CollectionUtils.isNotEmpty(changedKeys);
     }
 
+    /**
+     * 发送配置更新事件
+     */
     private void publishEvent(DtpProperties dtpProperties) {
         RefreshEvent event = new RefreshEvent(this, dtpProperties);
         EventBusManager.post(event);

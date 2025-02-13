@@ -49,6 +49,7 @@ public class DtpInterceptorRegistry {
     private static final Map<String, DtpInterceptor> INTERCEPTORS = Maps.newConcurrentMap();
 
     static {
+        // 通过SPI机制加载DtpInterceptor实现类
         List<DtpInterceptor> loadedInterceptors = ExtensionServiceLoader.get(DtpInterceptor.class);
         if (CollectionUtils.isNotEmpty(loadedInterceptors)) {
             loadedInterceptors.forEach(x -> {

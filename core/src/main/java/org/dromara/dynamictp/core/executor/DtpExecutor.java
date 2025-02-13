@@ -42,7 +42,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Dynamic ThreadPoolExecutor, extending ThreadPoolExecutor, implements some new features
- *
+ * 核心代码
  * @author yanhom
  * @since 1.0.0
  **/
@@ -56,6 +56,7 @@ public class DtpExecutor extends ThreadPoolExecutor implements TaskEnhanceAware,
 
     /**
      * Simple Business alias Name of Dynamic ThreadPool. Use for notify.
+     * 通知时使用
      */
     private String threadPoolAliasName;
 
@@ -66,21 +67,25 @@ public class DtpExecutor extends ThreadPoolExecutor implements TaskEnhanceAware,
 
     /**
      * Notify items, see {@link NotifyItemEnum}.
+     * 告警配置
      */
     private List<NotifyItem> notifyItems;
 
     /**
      * Notify platform ids.
+     * 通知方式ID
      */
     private List<String> platformIds;
 
     /**
      * Task wrappers, do sth enhanced.
+     * 任务增强
      */
     private List<TaskWrapper> taskWrappers = Lists.newArrayList();
 
     /**
      * Plugin names.
+     * 插件名称
      */
     private Set<String> pluginNames = Sets.newHashSet();
 
@@ -91,20 +96,24 @@ public class DtpExecutor extends ThreadPoolExecutor implements TaskEnhanceAware,
 
     /**
      * If pre start all core threads.
+     * 提前启动核心线程
      */
     private boolean preStartAllCoreThreads;
 
     /**
+     * 饱和策略
      * RejectHandler type.
      */
     private String rejectHandlerType;
 
     /**
+     * 增强饱和
      * If enhance reject.
      */
     private boolean rejectEnhanced = true;
 
     /**
+     * 任务超时时长
      * for manual builder thread pools only
      */
     private long runTimeout = 0;
@@ -115,11 +124,13 @@ public class DtpExecutor extends ThreadPoolExecutor implements TaskEnhanceAware,
     private boolean tryInterrupt = false;
 
     /**
+     * 入队超时时间
      * for manual builder thread pools only
      */
     private long queueTimeout = 0;
 
     /**
+     * 等待任务都执行完在关闭线程池
      * Whether to wait for scheduled tasks to complete on shutdown,
      * not interrupting running tasks and executing all tasks in the queue.
      */
@@ -129,6 +140,7 @@ public class DtpExecutor extends ThreadPoolExecutor implements TaskEnhanceAware,
      * The maximum number of seconds that this executor is supposed to block
      * on shutdown in order to wait for remaining tasks to complete their execution
      * before the rest of the container continues to shut down.
+     * 线程池关闭等待时间
      */
     protected int awaitTerminationSeconds = 0;
 
@@ -171,6 +183,9 @@ public class DtpExecutor extends ThreadPoolExecutor implements TaskEnhanceAware,
         super(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue, threadFactory, handler);
     }
 
+    /**
+     * 原始对象
+     */
     @Override
     public ThreadPoolExecutor getOriginal() {
         return this;

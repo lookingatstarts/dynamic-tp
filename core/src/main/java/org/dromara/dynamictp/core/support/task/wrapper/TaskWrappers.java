@@ -31,7 +31,7 @@ import static java.util.stream.Collectors.toList;
 
 /**
  * TaskWrapperHolder related
- *
+ * TaskWrapper
  * @author yanhom
  * @since 1.0.4
  **/

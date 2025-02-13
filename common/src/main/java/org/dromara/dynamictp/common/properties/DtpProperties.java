@@ -28,7 +28,7 @@ import java.util.List;
 
 /**
  * Main properties that maintain by config center.
- *
+ * 配置文件
  * @author yanhom
  * @since 1.0.0
  **/

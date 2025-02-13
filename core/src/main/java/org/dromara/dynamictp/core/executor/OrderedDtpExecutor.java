@@ -53,7 +53,6 @@ import java.util.concurrent.atomic.LongAdder;
 public class OrderedDtpExecutor extends DtpExecutor {
 
     private final ExecutorSelector selector = new HashedExecutorSelector();
-
     private final List<Executor> childExecutors = Lists.newArrayList();
 
     public OrderedDtpExecutor(int corePoolSize,
