@@ -31,7 +31,7 @@ import java.util.concurrent.Executor;
 
 /**
  * AwareManager related
- *
+ * 增强管理器
  * @author kyao
  * @since 1.1.4
  */
@@ -46,7 +46,7 @@ public class AwareManager {
         EXECUTOR_AWARE_LIST.add(new PerformanceMonitorAware());
         EXECUTOR_AWARE_LIST.add(new TaskTimeoutAware());
         EXECUTOR_AWARE_LIST.add(new TaskRejectAware());
-
+        // spi加载增强
         List<ExecutorAware> serviceLoader = ExtensionServiceLoader.get(ExecutorAware.class);
         EXECUTOR_AWARE_LIST.addAll(serviceLoader);
         EXECUTOR_AWARE_LIST.sort(Comparator.comparingInt(ExecutorAware::getOrder));

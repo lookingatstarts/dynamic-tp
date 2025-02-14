@@ -38,6 +38,7 @@ public class QueueTimeoutTimerTask extends AbstractTimeoutTimerTask {
         super(executorWrapper, runnable);
     }
 
+    // 时间轮添加任务，
     @Override
     protected void doRun() {
         val statProvider = executorWrapper.getThreadPoolStatProvider();

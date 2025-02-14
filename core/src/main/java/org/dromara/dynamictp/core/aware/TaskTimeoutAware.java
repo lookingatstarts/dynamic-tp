@@ -30,7 +30,7 @@ import static org.dromara.dynamictp.common.constant.DynamicTpConst.TRUE_STR;
 
 /**
  * TaskTimeoutAware related
- *
+ * 任务超时
  * @author kyao
  * @since 1.1.4
  */

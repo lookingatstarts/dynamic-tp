@@ -32,7 +32,7 @@ import static org.dromara.dynamictp.common.em.NotifyItemEnum.REJECT;
 
 /**
  * TaskRejectAware related
- *
+ * 拒绝任务统计
  * @author kyao
  * @since 1.1.4
  */
