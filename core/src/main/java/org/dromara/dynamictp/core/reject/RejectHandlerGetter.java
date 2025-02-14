@@ -53,6 +53,7 @@ public class RejectHandlerGetter {
         } else if (Objects.equals(name, DISCARD_POLICY.getName())) {
             return new ThreadPoolExecutor.DiscardPolicy();
         }
+        // spi机制
         List<RejectedExecutionHandler> loadedHandlers = ExtensionServiceLoader.get(RejectedExecutionHandler.class);
         for (RejectedExecutionHandler handler : loadedHandlers) {
             String handlerName = handler.getClass().getSimpleName();
@@ -60,7 +61,6 @@ public class RejectHandlerGetter {
                 return handler;
             }
         }
-
         log.error("Cannot find specified rejectedHandler {}", name);
         throw new DtpException("Cannot find specified rejectedHandler " + name);
     }

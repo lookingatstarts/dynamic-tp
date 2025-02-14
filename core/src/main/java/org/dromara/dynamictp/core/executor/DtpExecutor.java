@@ -193,7 +193,9 @@ public class DtpExecutor extends ThreadPoolExecutor implements TaskEnhanceAware,
 
     @Override
     public void execute(Runnable command) {
+        // 增强任务
         command = getEnhancedTask(command);
+        // 增强线程池
         AwareManager.execute(this, command);
         super.execute(command);
     }
@@ -232,6 +234,7 @@ public class DtpExecutor extends ThreadPoolExecutor implements TaskEnhanceAware,
 
     public void initialize() {
         NotifyHelper.initNotify(this);
+        // 提前创建core线程
         if (preStartAllCoreThreads) {
             prestartAllCoreThreads();
         }
